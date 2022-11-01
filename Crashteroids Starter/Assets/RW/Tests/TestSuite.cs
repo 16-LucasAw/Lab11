@@ -90,6 +90,21 @@ namespace Tests
             UnityEngine.Assertions.Assert.IsNull(asteroid);
         }
 
+        // Destroyed Asteroid Raises Score
+        [UnityTest]
+        public IEnumerator DestroyedAsteroidRaisesScore()
+        {
+            // Spawning an asteroid and a laser, and making sure they’re in the same position. This ensures a collision occurs, which will trigger a score increase.
+            GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+            asteroid.transform.position = Vector3.zero;
+            GameObject laser = game.GetShip().SpawnLaser();
+            laser.transform.position = Vector3.zero;
+            yield return new WaitForSeconds(0.1f);
+
+            // The game.score int is now 1 (instead of the 0 that it starts at).
+            Assert.AreEqual(game.score, 1);
+        }
+
     }
 
 }
