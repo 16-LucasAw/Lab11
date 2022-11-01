@@ -25,6 +25,7 @@ namespace Tests
             Object.Destroy(game.gameObject);
         }
 
+        // Asteroids Move Down
         [UnityTest]
         public IEnumerator AsteroidsMoveDown()
         {
@@ -35,6 +36,7 @@ namespace Tests
             Assert.Less(asteroid.transform.position.y, initialYPos);
         }
 
+        // GameOver Occurs On Asteroid Collision
         [UnityTest]
         public IEnumerator GameOverOccursOnAsteroidCollision()
         {
@@ -44,6 +46,19 @@ namespace Tests
 
             Assert.True(game.isGameOver);
         }
+
+        // New/Restart Game
+        [UnityTest]
+        public IEnumerator NewGameRestartsGame()
+        {
+            //1
+            game.isGameOver = true;
+            game.NewGame();
+            //2
+            Assert.False(game.isGameOver);
+            yield return null;
+        }
+
     }
 
 }
