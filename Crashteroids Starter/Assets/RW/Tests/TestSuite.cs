@@ -75,6 +75,21 @@ namespace Tests
             Assert.Greater(laser.transform.position.y, initialYPos);
         }
 
+        // Laser Destroys Asteroid
+        [UnityTest]
+        public IEnumerator LaserDestroysAsteroid()
+        {
+            // Creating an asteroid and a laser, and making sure they have the same position so as to trigger a collision.
+            GameObject asteroid = game.GetSpawner().SpawnAsteroid();
+            asteroid.transform.position = Vector3.zero;
+            GameObject laser = game.GetShip().SpawnLaser();
+            laser.transform.position = Vector3.zero;
+            yield return new WaitForSeconds(0.1f);
+
+            // Assert.IsNull() will not work for Unity null checks.
+            UnityEngine.Assertions.Assert.IsNull(asteroid);
+        }
+
     }
 
 }
