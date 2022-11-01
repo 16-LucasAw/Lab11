@@ -51,12 +51,28 @@ namespace Tests
         [UnityTest]
         public IEnumerator NewGameRestartsGame()
         {
-            //1
+            // The gameOver bool set to true. When the NewGame method is called, it should set this flag back to false.
             game.isGameOver = true;
             game.NewGame();
-            //2
+
+            // After a new game is called.
             Assert.False(game.isGameOver);
             yield return null;
+        }
+
+        // Laser Moves Up
+        [UnityTest]
+        public IEnumerator LaserMovesUp()
+        {
+            // Reference to a created laser spawned from the ship.
+            GameObject laser = game.GetShip().SpawnLaser();
+
+            // Initial position is recored so you can verify that it’s moving up.
+            float initialYPos = laser.transform.position.y;
+            yield return new WaitForSeconds(0.1f);
+
+            // Value is greater (indicating that the laser is moving up).
+            Assert.Greater(laser.transform.position.y, initialYPos);
         }
 
     }
